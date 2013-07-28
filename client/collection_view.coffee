@@ -21,7 +21,7 @@ get_collection_view_fields = -> get_fields(get_collection().find({}, limit: 50).
 
 Template.collection_view.events
   "click a.home": (e) ->
-    Meteor.go("/data/")
+    Meteor.Router.to("/data/")
 
   "click a.sort": (e) ->
       e.preventDefault()
@@ -49,7 +49,18 @@ Template.collection_view.events
       id = $('td:first-child a', $this.parents('tr')).html()
       field_name = $this.data('field')
       update_dict = {}
-      update_dict[field_name] = updated_val
+
+      # Type Cast
+      if updated_val === 'true'
+        update_dict[field_name] = true
+      else if updated_val === 'false'
+        update_dict[field_name] = false
+      else if !isNaN(parseFloat(updated_val )) && isFinite(updated_val)
+        update_dict[field_name] = parseFloat(updated_val)
+      else
+        update_dict[field_name] = updated_val
+      # Date Cast
+
       Meteor.call("admin_#{Session.get('collection_name')}_update",
         id, $set: update_dict)
 

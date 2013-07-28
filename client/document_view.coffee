@@ -34,8 +34,8 @@ Template.document_view.events
       unless field.name is '_id'
         update_dict[field.name] = if typeof(old_object[field.name]) == 'number'
             parseFloat(field.value)
-          else
-            field.value
+          else if typeof(old_object[field.name]) == 'boolean'
+            (field.value === 'true')
     Meteor.call("admin_#{Session.get('collection_name')}_update",
       Session.get('document_id'), $set: update_dict)
     Session.set('admin_should_show', true)
@@ -49,6 +49,6 @@ Template.document_view.events
       Session.get('document_id')
     Meteor.Router.to "/data/#{Session.get('collection_name')}"
   "click a.home": (e) ->
-    Meteor.go("/data/")
+    Meteor.Router.to("/data/")
   "click a.collection": (e) ->
-    Meteor.go("/data/#{Session.get('collection_name')}")
+    Meteor.Router.to("/data/#{Session.get('collection_name')}")
