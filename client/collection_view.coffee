@@ -2,7 +2,7 @@ Template.collection_view.helpers
   headers: -> get_collection_view_fields()
   nonid_headers: -> get_collection_view_fields()[1..]
   collection_name: -> "#{Session.get('collection_name')}"
-  document_url: -> "/admin/#{Session.get('collection_name')}/#{@_id}"
+  document_url: -> "/data/#{Session.get('collection_name')}/#{@_id}"
   document_id: -> @_id + ""
   rows: ->
     sort_by = {}
@@ -21,7 +21,7 @@ get_collection_view_fields = -> get_fields(get_collection().find({}, limit: 50).
 
 Template.collection_view.events
   "click a.home": (e) ->
-    Meteor.go("/admin/")
+    Meteor.go("/data/")
 
   "click a.sort": (e) ->
       e.preventDefault()

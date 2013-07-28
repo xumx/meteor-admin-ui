@@ -47,8 +47,8 @@ Template.document_view.events
     e.preventDefault()
     Meteor.call "admin_#{Session.get('collection_name')}_delete",
       Session.get('document_id')
-    Meteor.Router.to "/admin/#{Session.get('collection_name')}"
+    Meteor.Router.to "/data/#{Session.get('collection_name')}"
   "click a.home": (e) ->
-    Meteor.go("/admin/")
+    Meteor.go("/data/")
   "click a.collection": (e) ->
-    Meteor.go("/admin/#{Session.get('collection_name')}")
+    Meteor.go("/data/#{Session.get('collection_name')}")
