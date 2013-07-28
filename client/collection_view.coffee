@@ -50,16 +50,14 @@ Template.collection_view.events
       field_name = $this.data('field')
       update_dict = {}
 
-      # Type Cast
-      if updated_val === 'true'
+      if updated_val == 'true'
         update_dict[field_name] = true
-      else if updated_val === 'false'
+      else if updated_val == 'false'
         update_dict[field_name] = false
       else if !isNaN(parseFloat(updated_val )) && isFinite(updated_val)
         update_dict[field_name] = parseFloat(updated_val)
       else
         update_dict[field_name] = updated_val
-      # Date Cast
 
       Meteor.call("admin_#{Session.get('collection_name')}_update",
         id, $set: update_dict)

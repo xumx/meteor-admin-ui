@@ -35,7 +35,7 @@ Template.document_view.events
         update_dict[field.name] = if typeof(old_object[field.name]) == 'number'
             parseFloat(field.value)
           else if typeof(old_object[field.name]) == 'boolean'
-            (field.value === 'true')
+            (field.value == 'true')
     Meteor.call("admin_#{Session.get('collection_name')}_update",
       Session.get('document_id'), $set: update_dict)
     Session.set('admin_should_show', true)
