@@ -36,7 +36,7 @@ window.get_fields = (documents) ->
   find_fields = (document, prefix='') ->
     for key, value of _.omit(document, '_id')
       if typeof value is 'object'
-        find_fields value, "#{prefix}#{key}."
+        # find_fields value, "#{prefix}#{key}."
       else if typeof value isnt 'function'
         full_path_key = "#{prefix}#{key}"
         key_to_type[full_path_key] = typeof value

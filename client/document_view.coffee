@@ -1,6 +1,9 @@
 Template.document_view.helpers
   collection_name: -> Session.get('collection_name')
   adminHide: -> if Session.get('admin_should_show') then '' else 'hide'
+  items: ->
+    order = Order.findOne _id: Session.get('document_id')
+    if order then order.items
   fields: ->
     document = get_collection().findOne _id: Session.get('document_id')
     unless document

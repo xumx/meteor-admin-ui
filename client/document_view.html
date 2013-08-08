@@ -14,6 +14,27 @@
         {{/each}}
       </tbody>
     </table>
+
+
+    {{#if items}}
+    <legend>Items</legend>
+    <table class="table">
+      <tbody>
+        {{#each items}}
+          <tr>
+          <td><a href="{{url}}">{{name}}</a></td>
+          <td>{{size}}</td>
+          <td>{{color}}</td>
+          <td>{{quantity}}</td>
+          <td>{{price}}</td>
+          <td>{{SGD}}</td>
+          <td>{{remarks}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+    
     <span class="btn admin-save">Save</span>
     <span class="btn admin-delete">Delete</span>
   </div>
