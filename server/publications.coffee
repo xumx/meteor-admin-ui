@@ -59,7 +59,7 @@ Meteor.startup ->
 
   fn = Meteor.bindEnvironment save_collections, (e) ->
     console.log e.stack
-  Meteor._RemoteCollectionDriver.mongo.db.collections fn
+  MongoInternals.RemoteCollectionDriver.mongo.db.collections fn
 
 publish_to_admin = (name, publish_func) ->
   Meteor.publish name, ->
