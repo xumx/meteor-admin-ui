@@ -38,10 +38,8 @@ Meteor.startup ->
     Collections.insert {name} unless Collections.findOne {name}
 
 
-  save_collections = (meh, collections_db) ->
-    collection_names = (col.collectionName for col in collections_db \
-      when (col.collectionName.indexOf "system.") isnt 0 and
-           (col.collectionName.indexOf "admin_") isnt 0)
+  save_collections = () ->
+    collection_names = ['rates','merchants','sprees','orders','payments']
 
     # fucking closures bro
     collection_names.forEach (name) ->
@@ -56,11 +54,9 @@ Meteor.startup ->
           console.log e
 
         set_up_collection(name, collections[name])
-
-  fn = Meteor.bindEnvironment save_collections, (e) ->
-    console.log e.stack
-  MongoInternals.RemoteCollectionDriver.mongo.db.collections fn
-
+  
+  save_collections()
+  
 publish_to_admin = (name, publish_func) ->
   Meteor.publish name, ->
     if (Roles.userIsInRole(this.userId, ['admin']))
