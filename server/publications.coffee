@@ -37,26 +37,9 @@ Meteor.startup ->
         console.log e
     Collections.insert {name} unless Collections.findOne {name}
 
+    for key, value of YTCollections
+      set_up_collection(key, value)
 
-  save_collections = () ->
-    collection_names = ['rates','merchants','sprees','orders','payments']
-
-    # fucking closures bro
-    collection_names.forEach (name) ->
-      unless name of collections
-        try
-          collections[name] = new Meteor.Collection(name)
-        catch e
-          # fuck bitches, get collections
-          for key, value of root
-            if name == value._name
-              collections[name] = value
-          console.log e
-
-        set_up_collection(name, collections[name])
-  
-  save_collections()
-  
 publish_to_admin = (name, publish_func) ->
   Meteor.publish name, ->
     if (Roles.userIsInRole(this.userId, ['admin']))
