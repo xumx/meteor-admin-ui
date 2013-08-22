@@ -6,7 +6,7 @@ setup_collection = (collection_name) ->
 
   unless window[inspector_name]
       window[inspector_name] = YTCollections[collection_name]
-      
+
   Meteor.subscribe subscription_name
   Session.set("collection_name", collection_name)
   return window[inspector_name]
@@ -14,19 +14,20 @@ setup_collection = (collection_name) ->
 Template.db_view.helpers
   collections: -> Session.get("collections")
 
-Meteor.Router.add
-  '/data': ->
-    Session.set "collections", Collections.find().fetch()
-    return 'db_view'
+Meteor.startup ->
+  Meteor.Router.add
+    '/data': ->
+      Session.set "collections", Collections.find().fetch()
+      return 'db_view'
 
-  '/data/:collection': (collection_name) ->
-    collection = setup_collection collection_name
-    return 'collection_view'
+    '/data/:collection': (collection_name) ->
+      collection = setup_collection collection_name
+      return 'collection_view'
 
-  '/data/:collection/:document': (collection_name, document_id) ->
-    collection = setup_collection collection_name
-    Session.set('document_id', document_id)
-    return 'document_view'
+    '/data/:collection/:document': (collection_name, document_id) ->
+      collection = setup_collection collection_name
+      Session.set('document_id', document_id)
+      return 'document_view'
 
 window.get_fields = (documents) ->
   key_to_type = {_id: 'ObjectId'}
